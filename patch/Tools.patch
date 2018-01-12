@@ -8,7 +8,7 @@
 +#if defined(_MSC_VER) && _MSC_VER < 1900
 +namespace std
 +{
-+#define snprintf _snprintf
++#define std::snprintf _snprintf
 +}
 +#endif
 +
