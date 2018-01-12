@@ -1,0 +1,10 @@
+--- include/board/PathBoundaries.h	2016-06-09 19:30:46.000000000 +0200
++++ New_PathBoundaries.h	2018-01-12 13:12:41.952369700 +0100
+@@ -26,6 +26,7 @@
+ #ifndef _BOARD_PATH_BOUNDARIES_H_
+ #define _BOARD_PATH_BOUNDARIES_H_
+ 
++#include <iterator>
+ #include <vector>
+ #include "board/Point.h"
+ #include "board/Shapes.h"
