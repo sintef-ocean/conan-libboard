@@ -1,18 +1,16 @@
 --- src/Tools.cpp	2018-01-12 12:12:08.254349300 +0100
-+++ New_Tools.cpp	2018-01-12 18:16:15.399923300 +0100
-@@ -33,6 +33,15 @@
- #include <cstdlib>
- #include <cstdio>
- 
-+
++++ New_Tools.cpp	2018-01-12 19:21:51.956924100 +0100
+@@ -201,8 +201,12 @@
+           default: break;
+           }
+         }
 +#if defined(_MSC_VER) && _MSC_VER < 1900
-+namespace std
-+{
-+#define std::snprintf _snprintf
-+}
++        _snprintf(buffer,1024,"%s%s%s_%s%s",
++#else
+         std::snprintf(buffer,1024,"%s%s%s_%s%s",
+-                      paths[i],separator,prefix,suffix,extension);
 +#endif
-+
-+
- LibBoard::Tools::MessageStream LibBoard::Tools::notice( std::cerr, "Information: " );
- 
- LibBoard::Tools::MessageStream LibBoard::Tools::warning( std::cerr, "Warning: " );
++      paths[i],separator,prefix,suffix,extension);
+       } while ( canReadFile(buffer) );
+       if ( canCreateFile(buffer) ) {
+         path = paths[i];
