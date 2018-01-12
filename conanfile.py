@@ -21,6 +21,7 @@ class LibboardConan(ConanFile):
         tools.patch(patch_file="patch/CMakeLists.patch", base_path="libboard")
         tools.patch(patch_file="patch/PathBoundaries.patch", base_path="libboard")
         tools.patch(patch_file="patch/Shapes.patch", base_path="libboard")
+        tools.patch(patch_file="patch/Tools.patch", base_path="libboard")
 
     def build(self):
         cmake = CMake(self)

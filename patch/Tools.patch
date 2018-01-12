@@ -1,0 +1,18 @@
+--- src/Tools.cpp	2018-01-12 12:12:08.254349300 +0100
++++ New_Tools.cpp	2018-01-12 18:16:15.399923300 +0100
+@@ -33,6 +33,15 @@
+ #include <cstdlib>
+ #include <cstdio>
+ 
++
++#if defined(_MSC_VER) && _MSC_VER < 1900
++namespace std
++{
++#define snprintf _snprintf
++}
++#endif
++
++
+ LibBoard::Tools::MessageStream LibBoard::Tools::notice( std::cerr, "Information: " );
+ 
+ LibBoard::Tools::MessageStream LibBoard::Tools::warning( std::cerr, "Warning: " );
