@@ -4,17 +4,15 @@ from conans import ConanFile, CMake, tools
 class LibboardConan(ConanFile):
     name = "libboard"
     version = "0.9.4"
-    license = "LGPL-3.0"
+    license = "LGPL-3.0-only"
     url = "https://github.com/joakimono/conan-libboard"
     homepage = "https://github.com/c-koi/libboard"
+    author = "Joakim Haugen (joakim.haugen@gmail.com)"
     description = "The LibBoard C++ library allows the drawing of Postscript, SVG, and FIG (XFig) vector graphics using the C++ programming language."
-    settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+    settings = "os", "compiler", "build_type", "arch"
     exports = "patch/*"
     generators = "cmake"
 
-    def configure(self):
-        pass
-        
     def source(self):
 
         self.run("git clone --depth 1 -b v{0} https://github.com/c-koi/libboard.git".format(self.version))
