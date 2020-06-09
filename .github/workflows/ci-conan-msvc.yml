@@ -47,5 +47,5 @@ jobs:
           conan upload --all -c -r sintef 'libboard*' --retry 10
       - name: Bintray info
         run: |
-          python3 bintray.py ${env:SINTEF_CONAN_CLASS} `
+          python bintray.py ${env:SINTEF_CONAN_CLASS} `
             ${env:CONAN_LOGIN_USERNAME_SINTEF} ${env:CONAN_PASSWORD_SINTEF}

@@ -1,5 +1,7 @@
-[![Download](https://api.bintray.com/packages/sintef-ocean/conan/libboard%3Asintef/images/download.svg)](https://bintray.com/sintef-ocean/conan/libboard%3Asintef/_latestVersion)
 [![GCC Conan](https://github.com/sintef-ocean/conan-libboard/workflows/GCC%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"GCC+Conan")
+[![Clang Conan](https://github.com/sintef-ocean/conan-libboard/workflows/Clang%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"Clang+Conan")
+[![MSVC Conan](https://github.com/sintef-ocean/conan-libboard/workflows/MSVC%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"MSVC+Conan")
+[![Download](https://api.bintray.com/packages/sintef-ocean/conan/libboard%3Asintef/images/download.svg)](https://bintray.com/sintef-ocean/conan/libboard%3Asintef/_latestVersion)
 
 [Conan.io](https://conan.io) recipe for [libboard](https://github.com/c-koi/libboard).
 
@@ -35,11 +37,10 @@ The package is usually consumed using the `conan install` command or a *conanfil
 
    Insert into your *CMakeLists.txt* something like the following lines:
    ```cmake
-   cmake_minimum_required(VERSION 3.1.2)
+   cmake_minimum_required(VERSION 3.13)
    project(TheProject CXX)
 
    include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
-
    find_package(libboard MODULE REQUIRED)
 
    add_executable(the_executor code.cpp)
@@ -48,8 +49,9 @@ The package is usually consumed using the `conan install` command or a *conanfil
    Then, do
    ```bash
    $ mkdir build && cd build
-   $ conan install ..
+   $ conan install .. -s build_type=<build_type>
    ```
+   where `<build_type>` is e.g. `Debug` or `Release`.
    You can now continue with the usual dance with cmake commands for configuration and compilation. For details on how to use conan, please consult [Conan.io docs](http://docs.conan.io/en/latest/)
 
 ## Package options
