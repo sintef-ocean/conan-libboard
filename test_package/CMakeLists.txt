@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.2)
+cmake_minimum_required(VERSION 3.13)
 project(LibboardTest CXX)
 
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
