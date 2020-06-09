@@ -6,12 +6,10 @@ on: [push]
 env:
   CONAN_REFERENCE: "libboard/0.9.4"
   CONAN_UPLOAD: "https://api.bintray.com/conan/sintef-ocean/conan"
-  SINTEF_REMOTE: sintef
   CONAN_PASSWORD_SINTEF: ${{ secrets.BINTRAY_API_KEY }}
   CONAN_LOGIN_USERNAME_SINTEF: ${{ secrets.BINTRAY_USER }}
   CONAN_NON_INTERACTIVE: True
   CONAN_USE_ALWAYS_SHORT_PATHS: True
-  BINTRAY_URL: https://api.bintray.com/conan/sintef-ocean/conan
 
 jobs:
   conan-on-linux:
@@ -33,20 +31,19 @@ jobs:
       - name: Install prerequisites
         run: |
           sudo pip3 install --upgrade setuptools pip
-          sudo pip3 install conan
+          sudo pip3 install conan requests
           sudo pip3 install conan_package_tools
       - name: Configure Conan
-        run: conan remote add $SINTEF_REMOTE $BINTRAY_URL --insert 0
+        run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
         run: |
-          BRANCH=${GITHUB_REF#refs/*/}
-          SHORT_BRANCH=${BRANCH:0:50}
-          CHANNEL2=${SHORT_BRANCH//\//_}
-          CHANNEL=testing
           conan create -s build_type=${{ matrix.build_type }} \
             -s compiler.version=${{ matrix.compiler_version }} \
             -s compiler.libcxx=${{ matrix.compiler_libcxx }} \
-            -b missing . sintef/${CHANNEL}
+            -b missing . sintef/stable
       - name: Conan upload
         run: |
-          conan upload --all -c -r $SINTEF_REMOTE '*'
+          conan upload --all -c -r sintef 'libboard*'
+      - name: Bintray info
+        run: |
+          python3 bintray.py LibboardConan ${CONAN_LOGIN_USERNAME_SINTEF} ${CONAN_PASSWORD_SINTEF}

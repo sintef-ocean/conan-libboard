@@ -1,10 +1,9 @@
-[![Download](https://api.bintray.com/packages/sintef-ocean/conan/libboard%3Asintef-ocean/images/download.svg)](https://bintray.com/sintef-ocean/conan/libboard%3Asintef-ocean/_latestVersion)
-[![Build Status UNIX](https://github.com/sintef-ocean/conan-libboard/workflows/GCC Conan/badge.svg?branch=master)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"GCC+Conan")
-
+[![Download](https://api.bintray.com/packages/sintef-ocean/conan/libboard%3Asintef/images/download.svg)](https://bintray.com/sintef-ocean/conan/libboard%3Asintef/_latestVersion)
+[![GCC Conan](https://github.com/sintef-ocean/conan-libboard/workflows/GCC%20Conan/badge.svg)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"GCC+Conan")
 
 [Conan.io](https://conan.io) recipe for [libboard](https://github.com/c-koi/libboard).
 
-The recipe generates library packages, which can be found at [Bintray](https://bintray.com/sintef-ocean/conan/libboard%3Asintef-ocean).
+The recipe generates library packages, which can be found at [Bintray](https://bintray.com/sintef-ocean/conan/libboard%3Asintef).
 The package is usually consumed using the `conan install` command or a *conanfile.txt*.
 
 ## How to use this package
@@ -30,7 +29,8 @@ The package is usually consumed using the `conan install` command or a *conanfil
    licenses, * -> ./licenses @ folder=True
 
    [generators]
-   cmake
+   cmake_paths
+   cmake_find_package
    ```
 
    Insert into your *CMakeLists.txt* something like the following lines:
@@ -38,11 +38,12 @@ The package is usually consumed using the `conan install` command or a *conanfil
    cmake_minimum_required(VERSION 3.1.2)
    project(TheProject CXX)
 
-   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-   conan_basic_setup(TARGETS)
+   include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+
+   find_package(libboard MODULE REQUIRED)
 
    add_executable(the_executor code.cpp)
-   target_link_libraries(the_executor CONAN_PKG::libboard)
+   target_link_libraries(the_executor libboard::libboard)
    ```
    Then, do
    ```bash

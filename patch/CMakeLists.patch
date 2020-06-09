@@ -12,8 +12,8 @@
  
 -CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 +cmake_minimum_required(VERSION 3.1.2)
-+include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
-+conan_basic_setup()
++include(${CMAKE_BINARY_DIR}/../conan_paths.cmake)
++
 +
 +include(CTest)
 +enable_testing()
@@ -122,3 +122,4 @@
 +  SET_TARGET_PROPERTIES( ${EXAMPLE} PROPERTIES DEBUG_POSTFIX _d )
 +  add_test(NAME ${EXAMPLE} COMMAND ${EXAMPLE} )
 +endforeach(EXAMPLE)
+
