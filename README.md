@@ -1,11 +1,10 @@
-[![Download](https://api.bintray.com/packages/joakimono/conan/libboard%3Ajoakimono/images/download.svg)](https://bintray.com/joakimono/conan/libboard%3Ajoakimono/_latestVersion)
-[![Build Status UNIX](https://travis-ci.org/joakimono/conan-libboard.png?branch=master)](https://travis-ci.org/joakimono/conan-libboard)
-[![Build Status WIND](https://ci.appveyor.com/api/projects/status/github/joakimono/conan-libboard?branch=master&svg=true)](https://ci.appveyor.com/project/joakimono/conan-libboard)
+[![Download](https://api.bintray.com/packages/sintef-ocean/conan/libboard%3Asintef-ocean/images/download.svg)](https://bintray.com/sintef-ocean/conan/libboard%3Asintef-ocean/_latestVersion)
+[![Build Status UNIX](https://github.com/sintef-ocean/conan-libboard/workflows/GCC Conan/badge.svg?branch=master)](https://github.com/sintef-ocean/conan-libboard/actions?query=workflow%3A"GCC+Conan")
 
 
 [Conan.io](https://conan.io) recipe for [libboard](https://github.com/c-koi/libboard).
 
-The recipe generates library packages, which can be found at [Bintray](https://bintray.com/joakimono/conan/libboard%3Ajoakimono).
+The recipe generates library packages, which can be found at [Bintray](https://bintray.com/sintef-ocean/conan/libboard%3Asintef-ocean).
 The package is usually consumed using the `conan install` command or a *conanfile.txt*.
 
 ## How to use this package
@@ -13,7 +12,7 @@ The package is usually consumed using the `conan install` command or a *conanfil
 1. Add remote to conan's package [registry.txt](http://docs.conan.io/en/latest/reference/config_files/registry.txt.html):
 
    ```bash
-   $ conan remote add joakimono https://api.bintray.com/conan/joakimono/conan
+   $ conan remote add sintef https://api.bintray.com/conan/sintef-ocean/conan
    ```
 
 2. Using *conanfile.txt* in your project with *cmake*
@@ -22,10 +21,10 @@ The package is usually consumed using the `conan install` command or a *conanfil
 
    ```
    [requires]
-   libboard/[>=0.9.4]@joakimono/stable
+   libboard/[>=0.9.4]@sintef/stable
 
    [options]
-   
+
 
    [imports]
    licenses, * -> ./licenses @ folder=True

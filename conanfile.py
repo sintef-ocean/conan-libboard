@@ -7,7 +7,7 @@ class LibboardConan(ConanFile):
     name = "libboard"
     version = "0.9.4"
     license = "LGPL-3.0-only"
-    url = "https://github.com/joakimono/conan-libboard"
+    url = "https://github.com/sintef-ocean/conan-libboard"
     homepage = "https://github.com/c-koi/libboard"
     author = "Joakim Haugen (joakim.haugen@gmail.com)"
     description = "The LibBoard C++ library allows the drawing of Postscript, SVG, and FIG (XFig) vector graphics using the C++ programming language."
@@ -43,4 +43,3 @@ class LibboardConan(ConanFile):
             self.cpp_info.libs = ["board"]
         if(self.settings.build_type) == "Debug":
             self.cpp_info.libs[0] += "_d"
-        
