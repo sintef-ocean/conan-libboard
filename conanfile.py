@@ -14,7 +14,7 @@ class LibboardConan(ConanFile):
     description = \
         "The LibBoard C++ library allows the drawing of Postscript, SVG, " \
         "and FIG (XFig) vector graphics using the C++ programming language."
-    topics = ("vector graphics", "Postscript", "SVG", "XFig")
+    topics = ("libboard", "vector graphics", "Postscript", "SVG", "XFig")
     settings = "os", "compiler", "build_type", "arch"
     exports = ["patch/*"]
     generators = ("cmake_paths", "cmake_find_package")
