@@ -3,6 +3,7 @@
 
 from conans import ConanFile, CMake, tools
 
+
 class LibboardConan(ConanFile):
     name = "libboard"
     version = "0.9.4"
@@ -10,7 +11,10 @@ class LibboardConan(ConanFile):
     url = "https://github.com/sintef-ocean/conan-libboard"
     homepage = "https://github.com/c-koi/libboard"
     author = "Joakim Haugen (joakim.haugen@gmail.com)"
-    description = "The LibBoard C++ library allows the drawing of Postscript, SVG, and FIG (XFig) vector graphics using the C++ programming language."
+    description = \
+        "The LibBoard C++ library allows the drawing of Postscript, SVG, " \
+        "and FIG (XFig) vector graphics using the C++ programming language."
+    topics = ("vector graphics", "Postscript", "SVG", "XFig")
     settings = "os", "compiler", "build_type", "arch"
     exports = ["patch/*"]
     generators = ("cmake_paths", "cmake_find_package")
@@ -25,11 +29,16 @@ class LibboardConan(ConanFile):
 
     def source(self):
 
-        self.run("git clone --depth 1 -b v{0} https://github.com/c-koi/libboard.git".format(self.version))
-        tools.patch(patch_file="patch/CMakeLists.patch", base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/PathBoundaries.patch", base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/Shapes.patch", base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/Tools.patch", base_path=self.source_subfolder)
+        self.run("git clone --depth 1 -b v{0} https://github.com/c-koi/libboard.git"\
+                 .format(self.version))
+        tools.patch(patch_file="patch/CMakeLists.patch",
+                    base_path=self.source_subfolder)
+        tools.patch(patch_file="patch/PathBoundaries.patch",
+                    base_path=self.source_subfolder)
+        tools.patch(patch_file="patch/Shapes.patch",
+                    base_path=self.source_subfolder)
+        tools.patch(patch_file="patch/Tools.patch",
+                    base_path=self.source_subfolder)
 
     def build(self):
         cmake = self._config_cmake()
