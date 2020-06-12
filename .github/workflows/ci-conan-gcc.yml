@@ -22,9 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler_version: [4, 6,7,8,9]
+        compiler_version: [4.9, 6,7,8,9]
         include:  
-          - compiler_version: 4
+          - compiler_version: 4.9
             os: ubuntu-18.04
             compiler_libcxx: libstdc++
           - compiler_version: 6
