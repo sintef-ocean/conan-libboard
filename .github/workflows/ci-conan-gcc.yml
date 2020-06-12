@@ -22,11 +22,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-16.04]
+        compiler_version: [6,7,8,9]
+        os: [ubuntu-16.04, ubuntu-20.04]
+        include: 
+          - compiler_version: 6
+            os: ubuntu-18.04
+          - compiler_version: 7
+            os: ubuntu-20.04
+          - compiler_version: 8
+            os: ubuntu-20.04
+          - compiler_version: 9
+            os: ubuntu-20.04            
         build_type: [Debug, Release]
-        compiler_version: [6]
         compiler_libcxx: [libstdc++11]
-
     steps:
       - uses: actions/checkout@v2
       - name: Install prerequisites
@@ -34,7 +42,7 @@ jobs:
           sudo pip3 install --upgrade setuptools pip jinja2
           sudo pip3 install conan requests
           sudo pip3 install conan_package_tools
-          sudo apt-get install gcc-6 g++-6 -y                   
+          sudo apt-get install gcc-${{ matrix.compiler_version }} g++-${{ matrix.compiler_version }} -y                   
       - name: Configure Conan
         run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
