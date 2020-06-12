@@ -33,7 +33,8 @@ jobs:
         run: |
           sudo pip3 install --upgrade setuptools pip jinja2
           sudo pip3 install conan requests
-          sudo pip3 install conan_package_tools                  
+          sudo pip3 install conan_package_tools
+          sudo apt-get install gcc-6 g++-6 -y                   
       - name: Configure Conan
         run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
