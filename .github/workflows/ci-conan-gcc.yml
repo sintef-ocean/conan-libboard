@@ -34,7 +34,7 @@ jobs:
           sudo pip3 install --upgrade setuptools pip
           sudo pip3 install conan requests
           sudo pip3 install conan_package_tools
-          sudo echo deb http://archive.ubuntu.com/ubuntu bionic main universe >> /etc/apt/sources.list
+          sudo echo "deb http://archive.ubuntu.com/ubuntu bionic main universe" >> /etc/apt/sources.list.d/gcc6.list
           sudo apt-get update
           sudo apt-get install gcc-6 g++-6 -y
       - name: Configure Conan
