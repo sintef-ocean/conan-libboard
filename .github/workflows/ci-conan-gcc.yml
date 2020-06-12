@@ -34,7 +34,7 @@ jobs:
           sudo pip3 install --upgrade setuptools pip
           sudo pip3 install conan requests
           sudo pip3 install conan_package_tools
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y 
+          apt http://archive.ubuntu.com/ubuntu $(lsb_release -sc) bionic main universe 
           sudo apt-get update
           sudo apt-get install gcc-6 g++-6 -y
       - name: Configure Conan
