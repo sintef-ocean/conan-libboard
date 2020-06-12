@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
+        os: [ubuntu-18.04, ubuntu-20.04]
         build_type: [Debug, Release]
         compiler_version: [6, 7, 8, 9]
         compiler_libcxx: [libstdc++11]
@@ -33,10 +33,7 @@ jobs:
         run: |
           sudo pip3 install --upgrade setuptools pip
           sudo pip3 install conan requests
-          sudo pip3 install conan_package_tools
-          sudo echo "deb http://archive.ubuntu.com/ubuntu bionic main universe" >> /etc/apt/sources.list.d/gcc6.list
-          sudo apt-get update
-          sudo apt-get install gcc-6 g++-6 -y
+          sudo pip3 install conan_package_tools          
       - name: Configure Conan
         run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
