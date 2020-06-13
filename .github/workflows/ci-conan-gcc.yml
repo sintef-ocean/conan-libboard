@@ -22,22 +22,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler_version: [6,7,8,9]
-        include:  
+        compiler_version: [7, 8, 9]
+        os: ubuntu-20.04
+        compiler_libcxx: libstdc++11
+        include:
           - compiler_version: 6
             os: ubuntu-18.04
             compiler_libcxx: libstdc++
-          - compiler_version: 7
-            os: ubuntu-20.04
-            compiler_libcxx: libstdc++11
-          - compiler_version: 8
-            os: ubuntu-20.04
-            compiler_libcxx: libstdc++11
-          - compiler_version: 9
-            os: ubuntu-20.04            
-            compiler_libcxx: libstdc++11
         build_type: [Debug, Release]
-        
     steps:
       - uses: actions/checkout@v2
       - name: Install prerequisites
@@ -45,9 +37,11 @@ jobs:
           sudo pip3 install --upgrade setuptools pip jinja2
           sudo pip3 install conan requests
           sudo pip3 install conan_package_tools
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
-          sudo apt-get update
-          sudo apt-get install gcc-${{ matrix.compiler_version }} g++-${{ matrix.compiler_version }} -y                   
+          if [ ${{ matrix.compiler_version }} -eq 6 ]; then
+              sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+              sudo apt-get update
+              sudo apt-get install gcc-6 g++-6 -y
+          fi
       - name: Configure Conan
         run: conan remote add sintef ${CONAN_UPLOAD} --insert 0
       - name: Conan create
@@ -61,4 +55,5 @@ jobs:
           conan upload --all -c -r sintef ${SINTEF_REFERENCE} --retry 5
       - name: Bintray info
         run: |
-          python3 bintray.py ${SINTEF_CONAN_CLASS} ${CONAN_LOGIN_USERNAME_SINTEF} ${CONAN_PASSWORD_SINTEF}
+          python3 bintray.py ${SINTEF_CONAN_CLASS} \
+            ${CONAN_LOGIN_USERNAME_SINTEF} ${CONAN_PASSWORD_SINTEF}
