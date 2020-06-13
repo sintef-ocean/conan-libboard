@@ -25,11 +25,12 @@ jobs:
         os: [ubuntu-20.04]
         compiler_version: [7, 8, 9]
         compiler_libcxx: [libstdc++11]
+        build_type: [Debug, Release]
         include:
           - compiler_version: 6
             os: ubuntu-18.04
             compiler_libcxx: libstdc++
-        build_type: [Debug, Release]
+            build_type: [Debug, Release]
     steps:
       - uses: actions/checkout@v2
       - name: Install prerequisites
