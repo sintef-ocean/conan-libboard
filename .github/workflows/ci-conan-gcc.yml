@@ -22,9 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-20.04]
         compiler_version: [7, 8, 9]
-        os: ubuntu-20.04
-        compiler_libcxx: libstdc++11
+        compiler_libcxx: [libstdc++11]
         include:
           - compiler_version: 6
             os: ubuntu-18.04
