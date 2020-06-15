@@ -3,7 +3,7 @@ project(LibboardTest CXX)
 
 include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
-find_package(libboard MODULE REQUIRED)
+find_package(Libboard MODULE REQUIRED)
 
 add_executable(example example.cpp)
-target_link_libraries(example libboard::libboard)
+target_link_libraries(example Libboard::Libboard)

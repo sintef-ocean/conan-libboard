@@ -51,6 +51,7 @@ class LibboardConan(ConanFile):
                   ignore_case=True, keep_path=False)
 
     def package_info(self):
+        self.cpp_info.name = "Libboard"
         if self.settings.compiler == "Visual Studio":
             self.cpp_info.libs = ["libboard"]
         else:
