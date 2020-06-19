@@ -10,7 +10,7 @@ class LibboardConan(ConanFile):
     license = "LGPL-3.0"
     url = "https://github.com/sintef-ocean/conan-libboard"
     homepage = "https://github.com/c-koi/libboard"
-    author = "Joakim Haugen (joakim.haugen@gmail.com)"
+    author = "SINTEF Ocean"
     description = \
         "The LibBoard C++ library allows the drawing of Postscript, SVG, " \
         "and FIG (XFig) vector graphics using the C++ programming language."
