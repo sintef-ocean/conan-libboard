@@ -29,7 +29,8 @@ class LibboardConan(ConanFile):
 
     def source(self):
 
-        self.run("git clone --depth 1 -b v{0} https://github.com/c-koi/libboard.git"\
+        self.run("git clone --depth 1 -b v{0} "
+                 "https://github.com/c-koi/libboard.git"
                  .format(self.version))
         tools.patch(patch_file="patch/CMakeLists.patch",
                     base_path=self.source_subfolder)
