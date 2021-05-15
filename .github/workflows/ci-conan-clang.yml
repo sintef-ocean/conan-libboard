@@ -5,7 +5,7 @@ on: [push]
 
 env:
   SINTEF_REFERENCE: "libboard*"
-  CONAN_UPLOAD: ${{ secrets.CONAN_URL }}
+  CONAN_UPLOAD: https://conan.sintef.io/public/
   CONAN_PASSWORD_SINTEF: ${{ secrets.CONAN_PASSWORD }}
   CONAN_LOGIN_USERNAME_SINTEF: ${{ secrets.CONAN_USER }}
   CONAN_NON_INTERACTIVE: True
