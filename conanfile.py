@@ -1,7 +1,11 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from os.path import join
+from conan import ConanFile
+from conan.tools.files import get, copy
+from conan.tools.files import apply_conandata_patches, export_conandata_patches
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
+from conan.tools.microsoft.visual import is_msvc
 
-from conans import ConanFile, CMake, tools
+required_conan_version = ">=1.53.0"
 
 
 class LibboardConan(ConanFile):
@@ -14,46 +18,52 @@ class LibboardConan(ConanFile):
     description = \
         "The LibBoard C++ library allows the drawing of Postscript, SVG, " \
         "and FIG (XFig) vector graphics using the C++ programming language."
-    topics = ("libboard", "vector graphics", "Postscript", "SVG", "XFig")
+    topics = ("vector graphics", "Postscript", "SVG", "XFig")
     settings = "os", "compiler", "build_type", "arch"
-    exports = ["patch/*"]
-    generators = ("cmake_paths", "cmake_find_package")
-    source_subfolder = "libboard"
-    build_subfolder = "build_subfolder"
+    package_type = "static-library"
+    options = {
+        "fPIC": [True, False],
+    }
+    default_options = {
+        "fPIC": True,
+    }
 
-    def _config_cmake(self):
-        cmake = CMake(self)
-        cmake.configure(source_folder=self.source_subfolder,
-                        build_folder=self.build_subfolder)
-        return cmake
+    def export_sources(self):
+        export_conandata_patches(self)
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
+
+    def layout(self):
+        cmake_layout(self, src_folder="src")
 
     def source(self):
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
-        self.run("git clone --depth 1 -b v{0} "
-                 "https://github.com/c-koi/libboard.git"
-                 .format(self.version))
-        tools.patch(patch_file="patch/CMakeLists.patch",
-                    base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/PathBoundaries.patch",
-                    base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/Shapes.patch",
-                    base_path=self.source_subfolder)
-        tools.patch(patch_file="patch/Tools.patch",
-                    base_path=self.source_subfolder)
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
 
     def build(self):
-        cmake = self._config_cmake()
+        apply_conandata_patches(self)
+        cmake = CMake(self)
+        cmake.configure()
         cmake.build()
 
     def package(self):
-        cmake = self._config_cmake()
+        cmake = CMake(self)
         cmake.install()
-        self.copy("LICENSE", dst="licenses", src=self.source_subfolder,
-                  ignore_case=True, keep_path=False)
+
+        copy(self, "LICENSE", self.source_folder,
+             join(self.package_folder, "licenses"))
 
     def package_info(self):
-        self.cpp_info.name = "Libboard"
-        if self.settings.compiler == "Visual Studio":
+        self.cpp_info.set_property("cmake_find_mode", "both")
+        self.cpp_info.set_property("cmake_file_name", "Libboard")
+        self.cpp_info.set_property("cmake_target_name", "Libboard::Libboard")
+
+        if is_msvc(self) or (self.settings.os == "Windows" and self.settings.compiler == "clang"):
             self.cpp_info.libs = ["libboard"]
         else:
             self.cpp_info.libs = ["board"]

@@ -1,29 +1,27 @@
 --- CMakeLists.txt	2016-06-09 19:30:46.000000000 +0200
 +++ New_CMakeLists.txt	2018-01-12 16:40:20.275967200 +0100
-@@ -6,11 +6,17 @@
+@@ -6,11 +6,15 @@
    cmake_policy(SET CMP0048 NEW)
  endif()
- 
+
 -Project(LibBoard VERSION 0.9.4)
 +Project(LibBoard VERSION 0.9.5)
- 
+
  ADD_DEFINITIONS(-D_USE_MATH_DEFINES)
 +add_definitions(-D_CRT_SECURE_NO_WARNINGS)
- 
+
 -CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 +cmake_minimum_required(VERSION 3.1.2)
-+include(${CMAKE_BINARY_DIR}/../conan_paths.cmake)
-+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 +
 +include(CTest)
 +enable_testing()
- 
+
  include(CheckCXXCompilerFlag)
  CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 @@ -61,51 +67,8 @@
    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_C_FLAGS_DEBUG} -g")
  ENDIF(MSVC)
- 
+
 -IF(NOT MYPROJ_RAN_ONCE)
 -  SET(MYPROJ_RAN_ONCE 1 CACHE INTERNAL "")
 -
@@ -66,7 +64,7 @@
 -ENDIF(NOT MYPROJ_RAN_ONCE)
 -
  INCLUDE_DIRECTORIES( include/ include/board )
- 
+
 -LINK_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/lib/ )
 -
  SET(lib_src
@@ -74,18 +72,18 @@
    src/Color.cpp
 @@ -139,34 +102,26 @@
    )
- 
+
  ADD_LIBRARY(board STATIC ${lib_src})
 -SET_TARGET_PROPERTIES(board PROPERTIES DEBUG_POSTFIX _d)
 +set_target_properties(board PROPERTIES DEBUG_POSTFIX _d)
- 
+
 -ADD_LIBRARY(board-dynamic SHARED ${lib_src})
 -SET_TARGET_PROPERTIES(board-dynamic PROPERTIES OUTPUT_NAME "board")
 -SET_TARGET_PROPERTIES(board-dynamic PROPERTIES PREFIX "lib")
 +if(WIN32)
 +  set_target_properties(board PROPERTIES OUTPUT_NAME "libboard")
 +endif()
- 
+
  install(DIRECTORY include/ DESTINATION include FILES_MATCHING PATTERN "*.h")
  install(DIRECTORY include/board/ DESTINATION include/board FILES_MATCHING PATTERN "*.h")
 -install(TARGETS board DESTINATION lib)
@@ -97,7 +95,7 @@
 +  ARCHIVE DESTINATION lib
 +  LIBRARY DESTINATION lib
 +  RUNTIME DESTINATION bin)
- 
+
  FOREACH( EXAMPLE logo example1 example2 example3 example4
      arithmetic ellipse graph arrows  ruler koch clipping
      flag scale_ellipse line_style images line_segment tilings stroke_path )
@@ -122,4 +120,3 @@
 +  SET_TARGET_PROPERTIES( ${EXAMPLE} PROPERTIES DEBUG_POSTFIX _d )
 +  add_test(NAME ${EXAMPLE} COMMAND ${EXAMPLE} )
 +endforeach(EXAMPLE)
-

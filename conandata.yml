@@ -1,0 +1,11 @@
+sources:
+  "0.9.4":
+    url: "https://github.com/c-koi/libboard/archive/refs/tags/v0.9.4.tar.gz"
+    sha256: "8e3394624cc13e34d977fb15dc42a083e244197455a0829de8b7e81b62f8985b"
+
+patches:
+  "0.9.4":
+    - patch_file: "patches/0001_CMakeLists.patch"
+    - patch_file: "patches/0002_PathBoundaries.patch"
+    - patch_file: "patches/0003_Shapes.patch"
+    - patch_file: "patches/0004_Tools.patch"
