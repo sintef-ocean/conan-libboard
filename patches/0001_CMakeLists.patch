@@ -1,18 +1,17 @@
 --- CMakeLists.txt	2016-06-09 19:30:46.000000000 +0200
 +++ New_CMakeLists.txt	2018-01-12 16:40:20.275967200 +0100
-@@ -6,11 +6,15 @@
-   cmake_policy(SET CMP0048 NEW)
- endif()
+@@ -5,12 +5,12 @@
+-if(POLICY CMP0048)
+-  cmake_policy(SET CMP0048 NEW)
+-endif()
 
--Project(LibBoard VERSION 0.9.4)
-+Project(LibBoard VERSION 0.9.5)
++cmake_minimum_required(VERSION 3.15)
+ Project(LibBoard VERSION 0.9.4)
 
  ADD_DEFINITIONS(-D_USE_MATH_DEFINES)
 +add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 -CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-+cmake_minimum_required(VERSION 3.1.2)
-+
 +include(CTest)
 +enable_testing()
 
@@ -70,12 +69,11 @@
  SET(lib_src
    src/Board.cpp
    src/Color.cpp
-@@ -139,34 +102,26 @@
+@@ -139,34 +102,25 @@
    )
 
  ADD_LIBRARY(board STATIC ${lib_src})
 -SET_TARGET_PROPERTIES(board PROPERTIES DEBUG_POSTFIX _d)
-+set_target_properties(board PROPERTIES DEBUG_POSTFIX _d)
 
 -ADD_LIBRARY(board-dynamic SHARED ${lib_src})
 -SET_TARGET_PROPERTIES(board-dynamic PROPERTIES OUTPUT_NAME "board")
