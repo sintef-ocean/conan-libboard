@@ -69,11 +69,11 @@
  SET(lib_src
    src/Board.cpp
    src/Color.cpp
-@@ -139,34 +102,25 @@
+@@ -139,34 +102,26 @@
    )
 
  ADD_LIBRARY(board STATIC ${lib_src})
--SET_TARGET_PROPERTIES(board PROPERTIES DEBUG_POSTFIX _d)
+ SET_TARGET_PROPERTIES(board PROPERTIES DEBUG_POSTFIX _d)
 
 -ADD_LIBRARY(board-dynamic SHARED ${lib_src})
 -SET_TARGET_PROPERTIES(board-dynamic PROPERTIES OUTPUT_NAME "board")
